@@ -4,6 +4,11 @@
 
 <template>
   <main>
-    HERE
+    <div class="bg-stone-200 font-normal">
+      HERE
+    </div>
   </main>
 </template>
+
+<style>
+</style>
