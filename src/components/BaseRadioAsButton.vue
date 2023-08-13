@@ -30,7 +30,7 @@ const handleChecked = () => {
   <label class="inline-flex items-center cursor-pointer">
     <input type="radio" @change="handleChecked" :value="value" class="peer sr-only" :name="name">
     <span
-      class="bg-white rounded-[35px] border-2 border-primary text-primary py-2 px-6 min-w-[10em] text-center transition duration-300 peer-checked:bg-primary peer-checked:text-white">
+      class="inline-block align-middle bg-white rounded-[35px] border-2 border-primary text-primary py-2 px-6 min-w-[10em] text-center transition duration-300 peer-checked:bg-primary peer-checked:text-white">
       {{ label }}
     </span>
   </label>

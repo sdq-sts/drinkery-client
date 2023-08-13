@@ -4,11 +4,11 @@ import TheHeader from '@/components/TheHeader.vue';
 </script>
 
 <template>
-  <div class="bg-accent min-h-screen">
+  <div class="bg-secondary min-h-screen">
     <div class="max-w-screen-2xl mx-auto px-10">
       <TheHeader />
 
-      <main>
+      <main class="pb-20">
         <RouterView />
       </main>
     </div>
