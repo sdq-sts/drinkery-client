@@ -1,13 +1,11 @@
 <script setup lang="ts">
-
+import WelcomeHero from '@/components/WelcomeHero.vue';
 </script>
 
 <template>
-  <main>
-    <div class="bg-stone-200 font-normal">
-      HERE
-    </div>
-  </main>
+  <div>
+    <WelcomeHero class="mt-14" />
+  </div>
 </template>
 
 <style>

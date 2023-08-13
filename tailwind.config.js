@@ -9,7 +9,13 @@ export default {
     fontFamily: {
       sans: ['League Spartan', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        'primary': '#CBB47A',
+        'secondary': '#F8F7F5' ,
+        'accent': '#EEEBE6',
+      }
+    }, 
   },
   plugins: [],
 };
