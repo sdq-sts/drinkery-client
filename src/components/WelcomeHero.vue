@@ -1,6 +1,19 @@
 <script setup lang="ts">
 import WelcomeHeroChooseAlcohol from './WelcomeHeroChooseAlcohol.vue';
 import WelcomeHeroChooseSeason from './WelcomeHeroChooseSeason.vue';
+
+const emit = defineEmits<{
+  (e: 'alkySelection', value: boolean): void
+  (e: 'seasonSelection', value: string): void
+}>()
+
+const handleAlkySelection = (value: boolean) => {
+  emit('alkySelection', value)
+}
+
+const handleSeasonSelection = (value: string) => {
+  emit('seasonSelection', value)
+}
 </script>
 
 <template>
@@ -10,7 +23,7 @@ import WelcomeHeroChooseSeason from './WelcomeHeroChooseSeason.vue';
       <p class="text-xl mt-4">How will be your drink today?</p>
     </div>
 
-    <WelcomeHeroChooseAlcohol class="mr-8" />
-    <WelcomeHeroChooseSeason />
+    <WelcomeHeroChooseAlcohol @alky-selection="handleAlkySelection" class="mr-8" />
+    <WelcomeHeroChooseSeason @season-selection="handleSeasonSelection" />
   </div>
 </template>

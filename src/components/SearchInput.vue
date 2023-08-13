@@ -3,12 +3,12 @@ import searchIcon from '@/assets/icons/search-icon.svg'
 import { ref } from 'vue';
 
 const emit = defineEmits<{
-  (e: 'submit', value: string): void
+  (e: 'search', value: string): void
 }>()
 const searchInput = ref('')
 
 const submit = () => {
-  emit('submit', searchInput.value)
+  emit('search', searchInput.value)
 }
 </script>
 
