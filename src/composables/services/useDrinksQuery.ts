@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/vue-query";
+import { useInfiniteQuery } from "@tanstack/vue-query";
 import useHttpInstance from "../useHttpInstance";
 
 export type Drink = {
@@ -25,14 +25,35 @@ export type DrinksFilters = {
 
 export default (filters: DrinksFilters) => {
   const httpInstance = useHttpInstance();
-  console.log(filters)
+  const itemsPerPage = 12;
 
-  const drinks = httpInstance.get<Drink[]>('/drinks');
-  const query = useQuery({
+
+  const drinksFetcher = async ({ pageParam = 0 }) => {
+    const { data } = await httpInstance.get('/drinks', {
+      params: {
+        limit: itemsPerPage,
+        offset: pageParam,
+        ...(filters.search && { search: filters.search }),
+        ...(filters.alcoholic && { alcoholic: filters.alcoholic }),
+        ...(filters.season && { season: filters.season }),
+      }
+    });
+
+    return {
+      data: data,
+      pageParam: pageParam + itemsPerPage,
+    }
+  };
+
+  const query = useInfiniteQuery({
     queryKey: ["drinks", ],
-    queryFn: () => drinks,
-    select: (response) => response.data,
+    queryFn: drinksFetcher,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.data.length < itemsPerPage) return undefined;
+
+      return lastPage.pageParam;
+    },
   });
 
-  return query
+  return query;
 };

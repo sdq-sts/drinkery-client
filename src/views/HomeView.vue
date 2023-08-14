@@ -13,7 +13,7 @@ const filters = reactive({
   season: '',
   offset: 0
 })
-const { data: drinks } = useDrinksQuery(filters);
+const { data, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } = useDrinksQuery(filters);
 
 const handleAlkySelection = (value: boolean) => {
   filters.alcoholic = value;
@@ -23,18 +23,21 @@ const handleSeasonSelection = (value: string) => {
   filters.season = value;
 };
 
-watch(filters, () => {
-  console.log('WATCH', filters.search)
-})
+watch(filters, () => refetch())
 </script>
 
 <template>
   <div>
     <WelcomeHero @alky-selection="handleAlkySelection" @season-selection="handleSeasonSelection" class="mt-14" />
 
-    <div class="grid grid-cols-4 mt-12 gap-10">
-      <CardDrink v-for="drink in drinks" :drink="drink" :key="drink.id" />
+    <div class="grid grid-cols-4 auto-rows-fr mt-12 gap-10" v-for="(group, index) in data?.pages" :key="index">
+      <CardDrink v-for="drink in group.data" :drink="drink" :key="drink.id" />
     </div>
+
+    <button @click="() => fetchNextPage()" :disabled="!hasNextPage || isFetchingNextPage">
+      <span v-if="isFetchingNextPage">Loading more...</span>
+      <span v-else-if="hasNextPage">Load More</span>
+    </button>
   </div>
 </template>
 
