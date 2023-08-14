@@ -10,21 +10,36 @@ import seasonWinterIcon from '@/assets/icons/season-winter.svg';
 import seasonFallIcon from '@/assets/icons/season-fall.svg';
 import seasonSpringIcon from '@/assets/icons/season-spring.svg';
 import CardDrinkAddButton from './CardDrinkAddButton.vue';
+import { useMainStore } from '@/stores';
+
+const props = defineProps<{
+  drink: Drink;
+}>();
+
 
 const seasonIcons = {
   summer: seasonSummerIcon,
   winter: seasonWinterIcon,
   fall: seasonFallIcon,
   spring: seasonSpringIcon,
-}
+};
 
-const props = defineProps<{
-  drink: Drink;
-}>()
+const store = useMainStore();
+
+
+function addToCart() {
+  const drink = {
+    name: props.drink.name,
+    image: props.drink.images[0],
+    price: props.drink.price,
+    amount: 1,
+  }
+
+  store.addToCart(drink);
+}
 
 const { img, srcset } = useImageLinks(props.drink.images);
 const price = useFormatCurrency(props.drink.price);
-
 </script>
 
 <template>
@@ -57,7 +72,7 @@ const price = useFormatCurrency(props.drink.price);
       <span class="font-bold">
         {{ price }}
       </span>
-      <CardDrinkAddButton />
+      <CardDrinkAddButton @click="addToCart" />
     </div>
   </article>
 </template>
