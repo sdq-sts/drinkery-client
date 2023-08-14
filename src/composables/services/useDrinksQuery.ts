@@ -17,16 +17,15 @@ export type Drink = {
 }
 
 export type DrinksFilters = {
-  search: string,
-  alcoholic: boolean,
-  season: string,
-  offset: number
+  search: string;
+  alcoholic: boolean;
+  season: string;
+  offset: number;
 }
 
 export default (filters: DrinksFilters) => {
   const httpInstance = useHttpInstance();
   const itemsPerPage = 12;
-
 
   const drinksFetcher = async ({ pageParam = 0 }) => {
     const { data } = await httpInstance.get('/drinks', {
