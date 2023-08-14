@@ -1,6 +1,6 @@
 export default (links: string[]) => {
   const imgList = links.map((link) => `${import.meta.env.VITE_API_BASE_URL}/${link}`)
-  const img = imgList[imgList.length - 1]
+  const img = imgList[0]
   const srcset = imgList.reduce((acc, curr): string => {
     const regex = /-(\d+)\.jpg$/;
     const match = curr.match(regex);

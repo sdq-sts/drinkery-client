@@ -4,6 +4,7 @@ import useDrinksQuery from '@/composables/services/useDrinksQuery';
 import { useMainStore } from '@/stores';
 import { computed, reactive, watch } from 'vue';
 import CardDrink from '@/components/CardDrink.vue';
+import BaseButton from '@/components/BaseButton.vue';
 
 const store = useMainStore();
 
@@ -34,10 +35,9 @@ watch(filters, () => refetch())
       <CardDrink v-for="drink in group.data" :drink="drink" :key="drink.id" />
     </div>
 
-    <button @click="() => fetchNextPage()" :disabled="!hasNextPage || isFetchingNextPage">
-      <span v-if="isFetchingNextPage">Loading more...</span>
-      <span v-else-if="hasNextPage">Load More</span>
-    </button>
+    <div class="flex justify-center mt-12">
+      <BaseButton v-if="hasNextPage" label="Load more" @click="() => fetchNextPage()" />
+    </div>
   </div>
 </template>
 
